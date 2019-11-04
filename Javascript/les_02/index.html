@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--insertAdjacentHTML-->
+<!--beforebegin-->
+<p>
+    <!--afterbegin-->
+    <span></span>
+    <!--beforeend-->
+</p>
+<!--afterend-->
+
+<script>
+    // ES5
+    // var user = {
+    //   name: 'Ann',
+    // }
+
+    // function Person(name, yearOfBirth) {
+    //   this.name = name;
+    //   this.yearOfBirth = yearOfBirth;
+    // }
+    //
+    // Person.prototype.calcAge = function () {
+    //   console.log(new Date().getFullYear() - this.yearOfBirth);
+    // };
+    //
+    // function Teacher(name, yearOfBirth, subject) {
+    //   Person.call(this, name, yearOfBirth);
+    //   this.subject = subject;
+    // }
+    //
+    // Teacher.prototype = Object.create(Person.prototype);
+    // Teacher.prototype.constructor = Teacher;
+    //
+    // var john = new Person('John', 1990);
+    // var ann = new Teacher('Ann', 1995, 'Math');
+
+    // ES6
+    class Person {
+      constructor(name, yearOfBirth) {
+        this.name = name;
+        this.yearOfBirth = yearOfBirth;
+        this.words = ['мяч', 'дом', 'дорога'];
+      }
+
+      calcAge() {
+        console.log(new Date().getFullYear() - this.yearOfBirth);
+      }
+
+      sayWord() {
+        return this.words;
+      }
+    }
+
+    class Teacher extends Person {
+      constructor(name, yearOfBirth, subject) {
+        super(name, yearOfBirth);
+        this.subject = subject;
+        this.words = {
+          'мяч': 'ball',
+          'дом': 'house',
+          'дорога': 'road',
+        };
+      }
+
+      static triple(x) {
+        if (x === undefined) {
+          x = 2;
+        }
+        return x * 3;
+      }
+
+      sayWord() {
+        console.log(super.sayWord());
+        return `${this.words[super.sayWord()]}`; // Полиморфизм
+        // return `Aloha teacher`; не полиморфизм, а переопределение.
+      }
+    }
+
+    const john = new Person('John', 1990);
+    const ann = new Teacher('Ann', 1995, 'Math');
+</script>
+</body>
+</html>
