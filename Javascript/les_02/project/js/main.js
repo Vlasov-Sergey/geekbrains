@@ -24,7 +24,15 @@ class ProductList {
     this.goods = [];
     this.allProducts = [];
     this._fetchProducts();
+    this._sum();
     this._render();
+  }
+
+  _sum() {
+    this.totalPrice = 0;
+    for (let product of this.goods) {
+      this.totalPrice += product.price;
+    }
   }
 
   _fetchProducts() {
@@ -44,28 +52,51 @@ class ProductList {
       this.allProducts.push(productObject);
       block.insertAdjacentHTML('beforeend', productObject.render());
     }
+
+    block.insertAdjacentHTML('beforeend', `Total: ${this.totalPrice}`);
   }
 }
 
 const list = new ProductList();
 
 
+class Cart {
+  constructor(userId = 1) {
+    this.userId = userId;
+    this.products = [];
+    this._fetchProducts();
+    this._render();
+  }
 
-// const products = [
-//   {id: 1, title: 'Notebook', price: 40000},
-//   {id: 2, title: 'Mouse', price: 1000},
-//   {id: 3, title: 'Keyboard', price: 2500},
-//   {id: 4, title: 'Gamepad', price: 1500},
-// ];
-//
-// const renderProduct = (item, img = 'https://placehold.it/200x150') => `<div class="product-item">
-//             <img src="${img}" alt="Some img">
-//             <h3>${item.title}</h3>
-//             <p>${item.price}</p>
-//             <button class="by-btn">Добавить</button>
-//           </div>`;
-//
-// const renderProducts = list => document.querySelector('.products')
-//   .insertAdjacentHTML('beforeend', list.map(item => renderProduct(item)).join(''));
-//
-// renderProducts(products);
+  _render() {
+    
+  }
+
+  addProduct() {
+
+  }
+
+  deleteProduct() {
+
+  }
+
+  // edit = delete + add :)
+
+}
+
+class CartItem {
+  constructor(cartId = 1, product_id, count, color) {
+    this.cartId = cartId;
+    this.itemId = itemId;
+    this.product_id = product_id;
+    this.count = count;
+    this.color = color; // some characteristic (color, size or equipment)
+    this._render();
+  }
+
+  _render() {
+    
+  }
+
+
+}
