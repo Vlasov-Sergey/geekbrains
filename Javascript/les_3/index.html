@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--insertAdjacentHTML-->
+<!--beforebegin-->
+<p>
+    <!--afterbegin-->
+    <span></span>
+    <!--beforeend-->
+</p>
+<!--afterend-->
+
+<script>
+    // ES5
+    // var user = {
+    //   name: 'Ann',
+    // }
+
+    // function Person(name, yearOfBirth) {
+    //   this.name = name;
+    //   this.yearOfBirth = yearOfBirth;
+    // }
+    //
+    // Person.prototype.calcAge = function () {
+    //   console.log(new Date().getFullYear() - this.yearOfBirth);
+    // };
+    //
+    // function Teacher(name, yearOfBirth, subject) {
+    //   Person.call(this, name, yearOfBirth);
+    //   this.subject = subject;
+    // }
+    //
+    // Teacher.prototype = Object.create(Person.prototype);
+    // Teacher.prototype.constructor = Teacher;
+    //
+    // var john = new Person('John', 1990);
+    // var ann = new Teacher('Ann', 1995, 'Math');
+
+    // ES6
+    class Person {
+      constructor(name, yearOfBirth) {
+        this.name = name;
+        this.yearOfBirth = yearOfBirth;
+      }
+
+      calcAge() {
+        console.log(new Date().getFullYear() - this.yearOfBirth);
+      }
+
+      sayHi() {
+        return `${this.name} says hello`;
+      }
+
+      sayPhrase(phrase) {
+        return phrase;
+      }
+    }
+
+    class Teacher extends Person {
+      constructor(name, yearOfBirth, subject) {
+        super(name, yearOfBirth);
+        this.subject = subject;
+      }
+
+      static triple(x) {
+        if (x === undefined) {
+          x = 2;
+        }
+        return x * 3;
+      }
+
+      sayHi() {
+        return `${super.sayHi} as teacher`; // Полиморфизм
+        // return `Aloha teacher`; не полиморфизм, а переопределение.
+      }
+    }
+
+    const john = new Person('John', 1990);
+    const ann = new Teacher('Ann', 1995, 'Math');
+
+    /**
+     * Учитель английского
+     */
+    class EnglishMan extends Person {
+      constructor(name, yearOfBirth, subject) {
+        super(name, yearOfBirth);
+        this.subject = subject;
+        this.dictionary = [
+          {
+            ru: 'мяч',
+            eng: 'ball',
+          },
+          {
+            ru: 'дом',
+            eng: 'house',
+          },
+          {
+            ru: 'дорога',
+            eng: 'road',
+          },
+        ];
+      }
+
+      sayHi() {
+        return `${super.sayHi} as teacher`;
+      }
+
+      sayPhrase(phrase) {
+        return this._translate(super.sayPhrase(phrase));
+      }
+
+      _translate(phrase) {
+        return this.dictionary.find(word => {
+          return word.ru === phrase;
+        }).eng || 'я не знаю это слово';
+      }
+    }
+
+    const bob = new EnglishMan('Bob', 1985);
+</script>
+</body>
+</html>
