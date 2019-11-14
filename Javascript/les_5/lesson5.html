@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Lesson 5 - VueJS</title>
+    <style>
+        .block{
+            width: 200px;
+            height: 200px;
+            background-color: #c0c0c0;
+        }
+        .red{
+            background-color: red;
+        }
+        .blue{
+            background-color: blue;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js" defer></script>
+    <script src="app.js" defer></script>
+</head>
+<body>
+<div id="app">
+<!--  связывание данных  -->
+    <h1>{{title}}</h1>
+    <h3>{{sayHello()}}</h3>
+    <a :href="link">Google</a>
+<!--    <div>{{completeElement}}</div>-->
+    <div v-html="completeElement"></div>
+<!--    <input type="text" v-model="name">-->
+    <input type="text" v-model.lazy="name">
+    <p>{{name}}</p>
+    <input type="number" v-model="someNumber">
+    <p>{{someNumber}}</p>
+
+<!--  События  -->
+<!--    <button v-on:click="counter++">increase</button>-->
+<!--    <button @click="counter++">increase</button>-->
+    <button @click="increase(2, $event)">increase</button>
+    <p>{{counter}}</p>
+    <p>{{ counter > 10 ? 'Grater than 10' : 'Less than 10' }}</p>
+    <p @mousemove="getCoordinates($event)">Current position {{ x }} / {{ y }}
+        <span @mousemove.stop>Don't catch the coordinates</span>
+    </p>
+
+<!--  Вычисляемые значения  -->
+    <div>
+        <button @click="counter++">Increase</button>
+        <button @click="counter--">Decrease</button>
+        <button @click="secondCounter++">Increase second counter</button>
+        <p>Counter: {{ counter }} | {{ secondCounter }}</p>
+        <p>Result: {{ result() }} | {{ output }}</p>
+    </div>
+
+<!--  Стилизация  -->
+<!--    <div class="block" :style="{'backgroundColor': '#0f0'}"></div>-->
+    <div class="block" :style="myStyle"></div>
+    <input type="text" v-model="width">
+    <input type="text" v-model="color">
+    <div class="block" :class="{red: isRed, blue: !isRed}" @click="isRed=!isRed"></div>
+
+<!--  Условия  -->
+    <h2 v-if="show">i'm visible</h2>
+    <h2 v-else>Now i'm visible</h2>
+    <button @click="show=!show">Change</button>
+
+<!--  Итерация  -->
+    <div class="products">
+        <div class="product" v-for="product of products" :key="product.title">
+            <img :src="product.img" alt="">
+            <div>
+                <p>{{ product.title }}</p>
+                <p>{{ product.quantity }}</p>
+                <p>{{ product.price * product.quantity }}</p>
+            </div>
+        </div>
+        <button @click="addProduct">Add</button>
+        <button @click="products[1].quantity++">Change quantity</button>
+    </div>
+</div>
+</body>
+</html>
